@@ -29,6 +29,7 @@ let getComputerChoice = () => {
 
 // Play a Single Game of Rock, Paper, or Scissors Between Player and Computer
 let singleGame = (playerSelection, computerSelection) => {
+
     // If Player Selects Rock
     if ((playerSelection.toLowerCase() === "rock") && (computerSelection === "rock")) {
         return "Rock equals Rock, Draw!";
@@ -76,14 +77,14 @@ let singleGame = (playerSelection, computerSelection) => {
 // console.log(singleGame(playerSelection, computerSelection)); // Play a Single Game
 
 // Play a Round of 5 Game With the Computer
-let game = () => {
-    for (var count=0; count<5; count++) {
-        let playerSelection = prompt("Please Enter Rock, Paper, or Scissors"); // Ask Player to Enter their Choice
-        let computerSelection = getComputerChoice(); // Get the Computer's Selection from the computerChoice function
-        console.log(`Player: ${playerSelection}, Computer: ${computerSelection}`);
-        console.log(singleGame(playerSelection, computerSelection));
-    }
-    console.log(`Player: ${playerScore}, Computer: ${computerScore}`);
-}
+// let game = () => {
+//     for (var count=0; count<5; count++) {
+//         let playerSelection = prompt("Please Enter Rock, Paper, or Scissors"); // Ask Player to Enter their Choice
+//         let computerSelection = getComputerChoice(); // Get the Computer's Selection from the computerChoice function
+//         console.log(`Player: ${playerSelection}, Computer: ${computerSelection}`);
+//         console.log(singleGame(playerSelection, computerSelection));
+//     }
+//     console.log(`Player: ${playerScore}, Computer: ${computerScore}`);
+// }
 
-console.log(game());
+// console.log(game());
