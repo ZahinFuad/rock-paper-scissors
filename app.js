@@ -4,6 +4,15 @@
 let playerScore = 0;
 let computerScore = 0;
 
+let buttons = document.querySelectorAll('button');
+
+// Disable Buttons After 5 Wins for Player or Computer
+let disableButtons = () => {
+    buttons.forEach(elem => {
+        elem.disabled = true;
+    })
+}
+
 // Computer's Play - Randomly Display Rock, Paper, or Scissors
 let getComputerChoice = () => {
     let randomNumber = Math.floor(Math.random()*3); // Gets a random number 0, 1, or 2
@@ -25,66 +34,69 @@ let getComputerChoice = () => {
     return computerChoice;
 }
 
-//console.log(getComputerChoice());
-
 // Play a Single Game of Rock, Paper, or Scissors Between Player and Computer
-let singleGame = (playerSelection, computerSelection) => {
+let playGame = (playerSelection) => {
+    let computerSelection = getComputerChoice(); // Get the Computer's Selection from the computerChoice function
+    let result = "";
 
     // If Player Selects Rock
-    if ((playerSelection.toLowerCase() === "rock") && (computerSelection === "rock")) {
-        return "Rock equals Rock, Draw!";
+    if ((playerSelection === "rock") && (computerSelection === "rock")) {
+        result = "Rock equals Rock, Draw!";
     }
-    else if ((playerSelection.toLowerCase() === "rock") && (computerSelection === "scissors")) {
+    else if ((playerSelection === "rock") && (computerSelection === "scissors")) {
         playerScore++;
-        return "Rock Beats Scissors, You Win!";
+        result = "Rock Beats Scissors, You Win!";
     }
-    else if ((playerSelection.toLowerCase() === "rock") && (computerSelection === "paper")) {
+    else if ((playerSelection === "rock") && (computerSelection === "paper")) {
         computerScore++;
-        return "Rock Looses to Paper, You Lose!";
+        result = "Rock Looses to Paper, You Lose!";
     }
 
     // If Player Selects Paper
-    else if ((playerSelection.toLowerCase() === "paper") && (computerSelection === "paper")) {
-        return "Paper Equals Paper, Draw!";
+    else if ((playerSelection === "paper") && (computerSelection === "paper")) {
+        result = "Paper Equals Paper, Draw!";
     }
-    else if ((playerSelection.toLowerCase() === "paper") && (computerSelection === "rock")) {
+    else if ((playerSelection === "paper") && (computerSelection === "rock")) {
         playerScore++;
-        return "Paper Beats Rock, You Win!";
+        result = "Paper Beats Rock, You Win!";
     }
-    else if ((playerSelection.toLowerCase() === "paper") && (computerSelection === "scissors")) {
+    else if ((playerSelection === "paper") && (computerSelection === "scissors")) {
         computerScore++;
-        return "Paper Loses to Scissors, You Lose!";
+        result = "Paper Loses to Scissors, You Lose!";
     }
 
     // If Player Selects Scissors
-    else if ((playerSelection.toLowerCase() === "scissors") && (computerSelection === "scissors")) {
-        return "Scissors Equals Scissors, Draw!";
+    else if ((playerSelection === "scissors") && (computerSelection === "scissors")) {
+        result = "Scissors Equals Scissors, Draw!";
     }
-    else if ((playerSelection.toLowerCase() === "scissors") && (computerSelection === "rock")) {
+    else if ((playerSelection === "scissors") && (computerSelection === "rock")) {
         computerScore++;
-        return "Scissors Loses to Rocks, You Lose!";
+        result = "Scissors Loses to Rocks, You Lose!";
     }
-    else if ((playerSelection.toLowerCase() === "scissors") && (computerSelection === "paper")) {
+    else if ((playerSelection === "scissors") && (computerSelection === "paper")) {
         playerScore++;
-        return "Scissors Beats Paper, You Win!";
+        result = "Scissors Beats Paper, You Win!";
     }
+
+    // Stop the Game After Someone Wins 5 Times
+    if (playerScore == 5) {
+        result = "You've Won the Best of 5! Refresh the Page to Play Again!";
+        disableButtons();
+    }
+    else if (computerScore == 5) {
+        result = "You've Lost the Best of 5! Refresh the Page to Play Again";
+        disableButtons();
+    }
+    document.getElementById("result").innerHTML = result;
+    document.getElementById("scores").innerHTML = `Player Score: ${playerScore} | Computer Score: ${computerScore}`;
+    return;
 }
 
-// let playerSelection = prompt("Please Enter Rock, Paper, or Scissors"); // Ask Player to Enter their Choice
-// let computerSelection = getComputerChoice(); // Get the Computer's Selection from the computerChoice function
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        playGame(button.innerHTML);
+        // console.log(button.innerHTML);
+    })
+})
 
-// console.log(`Player: ${playerSelection}, Computer: ${computerSelection}`)
-// console.log(singleGame(playerSelection, computerSelection)); // Play a Single Game
 
-// Play a Round of 5 Game With the Computer
-// let game = () => {
-//     for (var count=0; count<5; count++) {
-//         let playerSelection = prompt("Please Enter Rock, Paper, or Scissors"); // Ask Player to Enter their Choice
-//         let computerSelection = getComputerChoice(); // Get the Computer's Selection from the computerChoice function
-//         console.log(`Player: ${playerSelection}, Computer: ${computerSelection}`);
-//         console.log(singleGame(playerSelection, computerSelection));
-//     }
-//     console.log(`Player: ${playerScore}, Computer: ${computerScore}`);
-// }
-
-// console.log(game());
